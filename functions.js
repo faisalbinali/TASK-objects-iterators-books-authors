@@ -9,9 +9,9 @@ const books = require("./books.json");
  * - returns undefined if no matching book is found
  ****************************************************************/
 function getBookById(bookId, books) {
-  // Your code goes here
+  return books.find((book) => book.id === bookId);
 }
-// console.log(getBookById(12, books));
+//console.log(getBookById(12, books));
 
 /**************************************************************
  * getAuthorByName(authorName, authors):
@@ -21,9 +21,11 @@ function getBookById(bookId, books) {
  * - returns undefined if no matching author is found
  ****************************************************************/
 function getAuthorByName(authorName, authors) {
-  // Your code goes here
+  return authors.find(
+    (author) => author.name.toUpperCase() === authorName.toUpperCase()
+  );
 }
-// console.log(getAuthorByName("J.K. Rowling", authors));
+//console.log(getAuthorByName("J.K. Rowling", authors));
 
 /**************************************************************
  * bookCountsByAuthor(authors):
@@ -32,9 +34,11 @@ function getAuthorByName(authorName, authors) {
  *    [{ author: <NAME>, bookCount: <NUMBER_OF_BOOKS> }]
  ****************************************************************/
 function bookCountsByAuthor(authors) {
-  // Your code goes here
+  return authors.map((element) => {
+    ({ author: element.name, bookCount: element.books });
+  });
 }
-// console.log(bookCountsByAuthor(authors));
+//console.log(bookCountsByAuthor(authors));
 
 /**************************************************************
  * booksByColor(books):
@@ -45,8 +49,6 @@ function bookCountsByAuthor(authors) {
  ****************************************************************/
 function booksByColor(books) {
   const colors = {};
-
-  // Your code goes here
 
   return colors;
 }
@@ -61,9 +63,11 @@ function booksByColor(books) {
  *    ["The Hitchhikers Guide", "The Meaning of Liff"]
  ****************************************************************/
 function titlesByAuthorName(authorName, authors, books) {
-  // Your code goes here
+  let a = getAuthorByName(authorName, authors);
+  let b = books.filter((book) => book.authors[0].name === a.name);
+  return b.map((x) => x.title);
 }
-// console.log(titlesByAuthorName("George R.R. Martin", authors, books));
+console.log(titlesByAuthorName("George R.R. Martin", authors, books));
 
 /**************************************************************
  * mostProlificAuthor(authors):
