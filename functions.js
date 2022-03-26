@@ -34,8 +34,9 @@ function getAuthorByName(authorName, authors) {
  *    [{ author: <NAME>, bookCount: <NUMBER_OF_BOOKS> }]
  ****************************************************************/
 function bookCountsByAuthor(authors) {
+  const colors = {};
   return authors.map((element) => {
-    ({ author: element.name, bookCount: element.books });
+    return { author: element.name, bookCount: element.books };
   });
 }
 //console.log(bookCountsByAuthor(authors));
@@ -63,8 +64,15 @@ function booksByColor(books) {
  *    ["The Hitchhikers Guide", "The Meaning of Liff"]
  ****************************************************************/
 function titlesByAuthorName(authorName, authors, books) {
+  let c = authors.find(
+    (element) => element.name.toUpperCase() === authorName.toUpperCase()
+  );
+  if (!c) return [];
+
   let a = getAuthorByName(authorName, authors);
-  let b = books.filter((book) => book.authors[0].name === a.name);
+  let b = books.filter(
+    (book) => book.authors[0].name.toUpperCase() === a.name.toUpperCase()
+  );
   return b.map((x) => x.title);
 }
 console.log(titlesByAuthorName("George R.R. Martin", authors, books));
@@ -77,7 +85,15 @@ console.log(titlesByAuthorName("George R.R. Martin", authors, books));
  * Note: assume there will never be a tie
  ****************************************************************/
 function mostProlificAuthor(authors) {
-  // Your code goes here
+  let a = "a";
+  let c = 0;
+  authors.forEach((element) => {
+    if (element.books.length > c) {
+      a = element.name;
+      c = element.books.length;
+    }
+  });
+  return a;
 }
 // console.log(mostProlificAuthor(authors));
 
